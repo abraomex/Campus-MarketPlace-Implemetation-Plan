@@ -29,4 +29,6 @@ export const validateQuery = (schema: ZodSchema) => {
         return sendError(res, issues.join("; "), 400);
       }
       next(error);
-   
+    }
+  };
+};

@@ -64,4 +64,9 @@ export class ProductsController {
   static async getCategories(req: Request, res: Response, next: NextFunction) {
     try {
       const categories = await ProductsService.listCategories();
-      return sendSuccess(res, categories, "Categories retrieve
+      return sendSuccess(res, categories, "Categories retrieved", 200);
+    } catch (error) {
+      next(error);
+    }
+  }
+}
