@@ -10,6 +10,7 @@ import {
   Shirt,
   Bike,
   Package,
+  Ticket,
   ArrowRight,
   ShieldCheck,
   Zap,
@@ -42,6 +43,8 @@ export const HomePage: React.FC = () => {
 
   const getCategoryIcon = (slug: string) => {
     switch (slug) {
+      case "shows-events":
+        return <Ticket className="w-6 h-6 text-pink-600" />;
       case "textbooks":
         return <BookOpen className="w-6 h-6 text-emerald-600" />;
       case "electronics":
