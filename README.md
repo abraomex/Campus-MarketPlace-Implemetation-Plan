@@ -261,3 +261,4 @@ npm run build
 
 ## 📜 License
 This project is open-source and created for educational purposes. Feel free to use and adapt it for your university or learning journey.
+

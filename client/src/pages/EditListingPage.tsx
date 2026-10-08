@@ -93,34 +93,34 @@ export const EditListingPage: React.FC = () => {
   if (loading) {
     return (
       <div className="max-w-2xl mx-auto py-16 text-center animate-pulse">
-        <div className="h-8 bg-slate-200 rounded w-1/3 mx-auto mb-4" />
-        <div className="h-64 bg-slate-200 rounded-3xl" />
+        <div className="h-8 bg-white/10 rounded w-1/3 mx-auto mb-4" />
+        <div className="h-64 bg-white/5 rounded-3xl" />
       </div>
     );
   }
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
-      <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 shadow-xl space-y-8">
+      <div className="bg-white/[0.04] backdrop-blur-md border border-white/[0.08] rounded-3xl p-6 sm:p-10 shadow-2xl text-white space-y-8">
         <div>
-          <h1 className="text-3xl font-black text-slate-900 tracking-tight flex items-center gap-2.5">
-            <Edit className="w-8 h-8 text-emerald-600" />
+          <h1 className="text-3xl font-black text-white tracking-tight flex items-center gap-2.5">
+            <Edit className="w-8 h-8 text-emerald-400" />
             Edit Listing
           </h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <p className="text-sm text-slate-400 mt-1">
             Update pricing, item availability, or description
           </p>
         </div>
 
         {error && (
-          <div className="p-4 bg-rose-50 border border-rose-200 rounded-2xl text-xs text-rose-700 font-medium">
+          <div className="p-4 bg-rose-500/10 border border-rose-500/20 rounded-2xl text-xs text-rose-400 font-medium">
             {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-1.5">
-            <label className="text-xs font-bold text-slate-700 uppercase tracking-wider">
+            <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">
               Item Title *
             </label>
             <input
@@ -128,13 +128,13 @@ export const EditListingPage: React.FC = () => {
               required
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:border-emerald-500 transition"
+              className="w-full px-4 py-2.5 bg-white/[0.06] border border-white/10 text-white placeholder:text-slate-500 focus:border-emerald-500 focus:bg-white/[0.08] rounded-xl text-sm transition focus:outline-none"
             />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+              <label className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
                 <Tag className="w-3.5 h-3.5 text-slate-400" />
                 Category *
               </label>
@@ -142,10 +142,10 @@ export const EditListingPage: React.FC = () => {
                 required
                 value={categoryId}
                 onChange={(e) => setCategoryId(e.target.value)}
-                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:border-emerald-500 transition"
+                className="w-full px-4 py-2.5 bg-white/[0.06] border border-white/10 text-white placeholder:text-slate-500 focus:border-emerald-500 focus:bg-white/[0.08] rounded-xl text-sm transition focus:outline-none"
               >
                 {categories.map((cat) => (
-                  <option key={cat.id} value={cat.id}>
+                  <option key={cat.id} value={cat.id} className="bg-[#0f172a] text-white">
                     {cat.name}
                   </option>
                 ))}
@@ -153,41 +153,41 @@ export const EditListingPage: React.FC = () => {
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-slate-700 uppercase tracking-wider">
+              <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">
                 Condition *
               </label>
               <select
                 value={condition}
                 onChange={(e) => setCondition(e.target.value as ItemCondition)}
-                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:border-emerald-500 transition"
+                className="w-full px-4 py-2.5 bg-white/[0.06] border border-white/10 text-white placeholder:text-slate-500 focus:border-emerald-500 focus:bg-white/[0.08] rounded-xl text-sm transition focus:outline-none"
               >
-                <option value="NEW">Brand New</option>
-                <option value="LIKE_NEW">Like New</option>
-                <option value="GOOD">Good</option>
-                <option value="FAIR">Fair</option>
-                <option value="POOR">Poor</option>
+                <option value="NEW" className="bg-[#0f172a] text-white">Brand New</option>
+                <option value="LIKE_NEW" className="bg-[#0f172a] text-white">Like New</option>
+                <option value="GOOD" className="bg-[#0f172a] text-white">Good</option>
+                <option value="FAIR" className="bg-[#0f172a] text-white">Fair</option>
+                <option value="POOR" className="bg-[#0f172a] text-white">Poor</option>
               </select>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-slate-700 uppercase tracking-wider">
+              <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">
                 Availability Status
               </label>
               <select
                 value={status}
                 onChange={(e) => setStatus(e.target.value as ProductStatus)}
-                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:border-emerald-500 transition"
+                className="w-full px-4 py-2.5 bg-white/[0.06] border border-white/10 text-white placeholder:text-slate-500 focus:border-emerald-500 focus:bg-white/[0.08] rounded-xl text-sm transition focus:outline-none"
               >
-                <option value="AVAILABLE">Available</option>
-                <option value="PENDING">Pending Pickup</option>
-                <option value="SOLD">Sold</option>
+                <option value="AVAILABLE" className="bg-[#0f172a] text-white">Available</option>
+                <option value="PENDING" className="bg-[#0f172a] text-white">Pending Pickup</option>
+                <option value="SOLD" className="bg-[#0f172a] text-white">Sold</option>
               </select>
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+              <label className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
                 <DollarSign className="w-3.5 h-3.5 text-slate-400" />
                 Price ($ USD) *
               </label>
@@ -198,12 +198,12 @@ export const EditListingPage: React.FC = () => {
                 required
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
-                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:border-emerald-500 transition"
+                className="w-full px-4 py-2.5 bg-white/[0.06] border border-white/10 text-white placeholder:text-slate-500 focus:border-emerald-500 focus:bg-white/[0.08] rounded-xl text-sm transition focus:outline-none"
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+              <label className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
                 <MapPin className="w-3.5 h-3.5 text-slate-400" />
                 Campus Meetup Location
               </label>
@@ -211,13 +211,13 @@ export const EditListingPage: React.FC = () => {
                 type="text"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
-                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:border-emerald-500 transition"
+                className="w-full px-4 py-2.5 bg-white/[0.06] border border-white/10 text-white placeholder:text-slate-500 focus:border-emerald-500 focus:bg-white/[0.08] rounded-xl text-sm transition focus:outline-none"
               />
             </div>
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-xs font-bold text-slate-700 uppercase tracking-wider">
+            <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">
               Description & Details *
             </label>
             <textarea
@@ -225,7 +225,7 @@ export const EditListingPage: React.FC = () => {
               rows={4}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:border-emerald-500 transition resize-y"
+              className="w-full px-4 py-3 bg-white/[0.06] border border-white/10 text-white placeholder:text-slate-500 focus:border-emerald-500 focus:bg-white/[0.08] rounded-xl text-sm transition focus:outline-none resize-y"
             />
           </div>
 
@@ -233,7 +233,7 @@ export const EditListingPage: React.FC = () => {
             <button
               type="button"
               onClick={() => navigate(`/products/${id}`)}
-              className="flex-1 py-3 px-6 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl transition"
+              className="flex-1 py-3.5 px-6 border border-white/20 text-white hover:bg-white/10 font-bold rounded-xl transition"
             >
               Cancel
             </button>
@@ -241,7 +241,7 @@ export const EditListingPage: React.FC = () => {
             <button
               type="submit"
               disabled={submitting}
-              className="flex-2 py-3 px-6 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-lg shadow-emerald-500/20 transition flex items-center justify-center gap-2 disabled:opacity-50"
+              className="flex-[2] py-3.5 px-6 bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold uppercase tracking-wider shadow-lg shadow-emerald-500/20 rounded-xl transition flex items-center justify-center gap-2 disabled:opacity-50"
             >
               {submitting ? "Saving changes..." : "Save Changes"}
               <ArrowRight className="w-4 h-4" />
@@ -252,4 +252,3 @@ export const EditListingPage: React.FC = () => {
     </div>
   );
 };
-
