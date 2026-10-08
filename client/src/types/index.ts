@@ -1,6 +1,8 @@
 export type ItemCondition = "NEW" | "LIKE_NEW" | "GOOD" | "FAIR" | "POOR";
 export type ProductStatus = "AVAILABLE" | "PENDING" | "SOLD";
 export type UserRole = "STUDENT" | "ADMIN";
+export type OrderStatus = "PENDING" | "CONFIRMED" | "COMPLETED" | "CANCELLED";
+export type PaymentMethod = "CAMPUS_MEETUP_CASH" | "VENMO_OR_ZELLE" | "CARD";
 
 export interface User {
   id: string;
@@ -48,11 +50,75 @@ export interface Product {
     avatarUrl?: string | null;
     campus?: string | null;
     bio?: string | null;
+    email?: string;
+    phone?: string | null;
     createdAt?: string;
   };
   images: ProductImage[];
   createdAt: string;
   updatedAt: string;
+}
+
+export interface Message {
+  id: string;
+  conversationId: string;
+  senderId: string;
+  receiverId: string;
+  content: string;
+  isRead: boolean;
+  createdAt: string;
+  sender?: {
+    id: string;
+    name: string;
+    avatarUrl?: string | null;
+  };
+}
+
+export interface Conversation {
+  id: string;
+  productId: string;
+  buyerId: string;
+  sellerId: string;
+  createdAt: string;
+  updatedAt: string;
+  product: {
+    id: string;
+    title: string;
+    price: string | number;
+    status: ProductStatus;
+    location?: string | null;
+    images?: { url: string }[];
+  };
+  buyer: {
+    id: string;
+    name: string;
+    avatarUrl?: string | null;
+    campus?: string | null;
+  };
+  seller: {
+    id: string;
+    name: string;
+    avatarUrl?: string | null;
+    campus?: string | null;
+  };
+  messages?: Message[];
+}
+
+export interface Order {
+  id: string;
+  productId: string;
+  buyerId: string;
+  sellerId: string;
+  price: string | number;
+  status: OrderStatus;
+  paymentMethod: PaymentMethod;
+  meetupLocation: string;
+  meetupNote?: string | null;
+  createdAt: string;
+  updatedAt: string;
+  product: Product;
+  buyer?: User;
+  seller?: User;
 }
 
 export interface PaginationMeta {
@@ -69,4 +135,3 @@ export interface ApiResponse<T> {
   meta?: PaginationMeta;
   error?: string;
 }
-
