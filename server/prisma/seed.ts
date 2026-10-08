@@ -1,3 +1,6 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import { PrismaClient, ItemCondition, ProductStatus } from "@prisma/client";
 import bcrypt from "bcryptjs";
 

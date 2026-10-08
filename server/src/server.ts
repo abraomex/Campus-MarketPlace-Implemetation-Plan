@@ -6,6 +6,8 @@ import cors from "cors";
 import path from "path";
 import { authRouter } from "./modules/auth/auth.routes";
 import { productsRouter } from "./modules/products/products.routes";
+import { messagesRouter } from "./modules/messages/messages.routes";
+import { ordersRouter } from "./modules/orders/orders.routes";
 import { errorHandler } from "./middlewares/errorHandler";
 
 const app = express();
@@ -36,6 +38,8 @@ app.get("/api/health", (req, res) => {
 // API Routes
 app.use("/api/auth", authRouter);
 app.use("/api/products", productsRouter);
+app.use("/api/messages", messagesRouter);
+app.use("/api/orders", ordersRouter);
 
 // Global Error Handler
 app.use(errorHandler);

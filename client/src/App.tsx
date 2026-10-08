@@ -1,6 +1,8 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
+import { NotificationProvider } from "./context/NotificationContext";
+import { NotificationToastContainer } from "./components/common/NotificationToastContainer";
 import { Navbar } from "./components/common/Navbar";
 import { Footer } from "./components/common/Footer";
 import { ProtectedRoute } from "./components/auth/ProtectedRoute";
@@ -13,13 +15,16 @@ import { EditListingPage } from "./pages/EditListingPage";
 import { ProfilePage } from "./pages/ProfilePage";
 import { LoginPage } from "./pages/LoginPage";
 import { RegisterPage } from "./pages/RegisterPage";
+import { MessagesPage } from "./pages/MessagesPage";
 
 export const App: React.FC = () => {
   return (
     <AuthProvider>
-      <BrowserRouter>
-        <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans">
-          <Navbar />
+      <NotificationProvider>
+        <BrowserRouter>
+          <NotificationToastContainer />
+          <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans">
+            <Navbar />
           <main className="flex-1">
             <Routes>
               {/* Public Routes */}
@@ -54,6 +59,14 @@ export const App: React.FC = () => {
                   </ProtectedRoute>
                 }
               />
+              <Route
+                path="/messages"
+                element={
+                  <ProtectedRoute>
+                    <MessagesPage />
+                  </ProtectedRoute>
+                }
+              />
 
               {/* Fallback */}
               <Route path="*" element={<Navigate to="/" replace />} />
@@ -62,6 +75,7 @@ export const App: React.FC = () => {
           <Footer />
         </div>
       </BrowserRouter>
+      </NotificationProvider>
     </AuthProvider>
   );
 };

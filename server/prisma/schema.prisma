@@ -26,6 +26,19 @@ enum ProductStatus {
   SOLD
 }
 
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+}
+
+enum PaymentMethod {
+  CAMPUS_MEETUP_CASH
+  VENMO_OR_ZELLE
+  CARD
+}
+
 model User {
   id                    String         @id @default(uuid())
   email                 String         @unique
@@ -45,6 +58,8 @@ model User {
   receivedMessages      Message[]      @relation("ReceivedMessages")
   buyerConversations    Conversation[] @relation("BuyerConversations")
   sellerConversations   Conversation[] @relation("SellerConversations")
+  ordersBought          Order[]        @relation("BuyerOrders")
+  ordersSold            Order[]        @relation("SellerOrders")
   reportsFiled          Report[]       @relation("ReportedBy")
 
   @@map("users")
@@ -78,6 +93,7 @@ model Product {
   images        ProductImage[]
   favorites     Favorite[]
   conversations Conversation[]
+  order         Order?
   reports       Report[]
 
   createdAt     DateTime      @default(now())
@@ -143,6 +159,25 @@ model Message {
   @@map("messages")
 }
 
+model Order {
+  id              String         @id @default(uuid())
+  productId       String         @unique
+  product         Product        @relation(fields: [productId], references: [id], onDelete: Cascade)
+  buyerId         String
+  buyer           User           @relation("BuyerOrders", fields: [buyerId], references: [id], onDelete: Cascade)
+  sellerId        String
+  seller          User           @relation("SellerOrders", fields: [sellerId], references: [id], onDelete: Cascade)
+  price           Decimal        @db.Decimal(10, 2)
+  status          OrderStatus    @default(PENDING)
+  paymentMethod   PaymentMethod  @default(CAMPUS_MEETUP_CASH)
+  meetupLocation  String
+  meetupNote      String?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  @@map("orders")
+}
+
 model Report {
   id          String   @id @default(uuid())
   reporterId  String
@@ -155,4 +190,3 @@ model Report {
 
   @@map("reports")
 }
-

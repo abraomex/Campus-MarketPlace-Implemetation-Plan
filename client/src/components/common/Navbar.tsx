@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { useNotifications } from "../../context/NotificationContext";
 import {
   ShoppingBag,
   PlusCircle,
@@ -10,10 +11,12 @@ import {
   Menu,
   X,
   Compass,
+  MessageSquare,
 } from "lucide-react";
 
 export const Navbar: React.FC = () => {
   const { user, isAuthenticated, logout } = useAuth();
+  const { unreadMessages, pendingOrders } = useNotifications();
   const [searchQuery, setSearchQuery] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
@@ -91,11 +94,29 @@ export const Navbar: React.FC = () => {
             {isAuthenticated ? (
               <div className="flex items-center gap-2 pl-2 border-l border-slate-200">
                 <Link
+                  to="/messages"
+                  className="relative flex items-center gap-1.5 px-3 py-2 text-sm font-semibold text-slate-600 hover:text-emerald-600 hover:bg-slate-50 rounded-lg transition"
+                >
+                  <MessageSquare className="w-4 h-4" />
+                  <span>Messages</span>
+                  {unreadMessages > 0 && (
+                    <span className="px-1.5 py-0.5 text-[10px] font-black bg-rose-500 text-white rounded-full leading-none shadow-xs">
+                      {unreadMessages}
+                    </span>
+                  )}
+                </Link>
+
+                <Link
                   to="/profile"
                   className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-100 rounded-lg transition"
                 >
-                  <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-800 font-bold flex items-center justify-center text-xs border border-emerald-300">
-                    {user?.name.charAt(0).toUpperCase()}
+                  <div className="relative">
+                    <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-800 font-bold flex items-center justify-center text-xs border border-emerald-300">
+                      {user?.name.charAt(0).toUpperCase()}
+                    </div>
+                    {pendingOrders > 0 && (
+                      <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-amber-500 rounded-full ring-2 ring-white" />
+                    )}
                   </div>
                   <span className="max-w-[100px] truncate">{user?.name}</span>
                 </Link>
@@ -172,12 +193,35 @@ export const Navbar: React.FC = () => {
               {isAuthenticated ? (
                 <>
                   <Link
+                    to="/messages"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center justify-between px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100 rounded-lg"
+                  >
+                    <div className="flex items-center gap-2">
+                      <MessageSquare className="w-4 h-4" />
+                      <span>Messages</span>
+                    </div>
+                    {unreadMessages > 0 && (
+                      <span className="px-2 py-0.5 text-xs font-bold bg-rose-500 text-white rounded-full">
+                        {unreadMessages}
+                      </span>
+                    )}
+                  </Link>
+
+                  <Link
                     to="/profile"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center gap-2 px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100 rounded-lg"
+                    className="flex items-center justify-between px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100 rounded-lg"
                   >
-                    <User className="w-4 h-4" />
-                    My Profile & Listings ({user?.name})
+                    <div className="flex items-center gap-2">
+                      <User className="w-4 h-4" />
+                      <span>My Profile ({user?.name})</span>
+                    </div>
+                    {pendingOrders > 0 && (
+                      <span className="px-2 py-0.5 text-xs font-bold bg-amber-500 text-white rounded-full">
+                        {pendingOrders} new order
+                      </span>
+                    )}
                   </Link>
                   <button
                     onClick={handleLogout}
