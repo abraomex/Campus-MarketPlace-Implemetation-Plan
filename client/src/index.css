@@ -3,8 +3,261 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    color-scheme: light;
+    --botanical-background: #f9f8f4;
+    --botanical-foreground: #2d3a31;
+    --botanical-sage: #8c9a84;
+    --botanical-clay: #dccfc2;
+    --botanical-border: #e6e2da;
+    --botanical-terracotta: #c27b66;
+    --botanical-panel: #ffffff;
+    --botanical-muted: #667168;
+    --botanical-shadow-soft: 0 10px 24px rgb(45 58 49 / 6%);
+  }
+
   body {
-    @apply bg-slate-50 text-slate-900 antialiased min-h-screen selection:bg-emerald-500 selection:text-white;
+    @apply min-h-screen antialiased;
+    background-color: var(--botanical-background);
+    background-image:
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)' opacity='.12'/%3E%3C/svg%3E"),
+      linear-gradient(var(--botanical-background), var(--botanical-background));
+    background-attachment: fixed;
+    color: var(--botanical-foreground);
+    font-family: "Source Sans 3", "Segoe UI", sans-serif;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  .font-serif {
+    font-family: "Playfair Display", Georgia, serif;
+  }
+
+  input,
+  select,
+  textarea {
+    color-scheme: light;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--botanical-background);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #c8cfc5;
+    border: 2px solid var(--botanical-background);
+    border-radius: 8px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--botanical-sage);
+  }
+}
+
+@layer components {
+  .site-shell {
+    min-height: 100vh;
+    background: rgb(249 248 244 / 92%);
+    color: var(--botanical-foreground);
+  }
+
+  .botanical-panel {
+    border: 1px solid var(--botanical-border);
+    border-radius: 24px;
+    background: var(--botanical-panel);
+    box-shadow: var(--botanical-shadow-soft);
+  }
+
+  .botanical-button {
+    border-radius: 9999px;
+    background: var(--botanical-foreground);
+    color: #fff;
+    transition:
+      transform 300ms ease-out,
+      background-color 300ms ease-out,
+      box-shadow 300ms ease-out;
+  }
+
+  .botanical-button:hover {
+    transform: translateY(-1px);
+    background: #425348;
+    box-shadow: 0 8px 18px rgb(45 58 49 / 12%);
+  }
+
+  .botanical-button:active {
+    transform: translateY(0);
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    @apply rounded-3xl border;
+    border-color: var(--botanical-border);
+    background: var(--botanical-panel);
+    box-shadow: var(--botanical-shadow-soft);
+  }
+
+  .glass-card-hover {
+    @apply transition-all duration-500 ease-out;
+  }
+
+  .site-shell [class~="text-white"],
+  .site-shell [class~="text-slate-100"],
+  .site-shell [class~="text-slate-200"],
+  .site-shell [class~="text-slate-300"] {
+    color: var(--botanical-foreground);
+  }
+
+  .site-shell [class~="text-slate-400"],
+  .site-shell [class~="text-slate-500"],
+  .site-shell [class~="text-slate-600"] {
+    color: var(--botanical-muted);
+  }
+
+  .site-shell [class~="text-emerald-300"],
+  .site-shell [class~="text-emerald-400"],
+  .site-shell [class~="text-emerald-500"] {
+    color: #647663;
+  }
+
+  .site-shell [class~="text-rose-300"],
+  .site-shell [class~="text-rose-400"],
+  .site-shell [class~="text-rose-500"] {
+    color: #a45143;
+  }
+
+  .site-shell [class~="text-amber-300"],
+  .site-shell [class~="text-amber-400"],
+  .site-shell [class~="text-amber-500"] {
+    color: #856438;
+  }
+
+  .site-shell [class~="bg-[#2d3a31]"][class~="text-white"] {
+    color: #ffffff;
+  }
+
+  .site-shell [class*="hover:text-white"]:hover,
+  .site-shell [class*="hover:text-slate-"]:hover {
+    color: var(--botanical-foreground);
+  }
+
+  .site-shell [class*="hover:text-emerald-"]:hover {
+    color: var(--botanical-terracotta);
+  }
+
+  .site-shell [class~="bg-white/[0.02]"],
+  .site-shell [class~="bg-white/[0.03]"],
+  .site-shell [class~="bg-white/[0.04]"],
+  .site-shell [class~="bg-white/[0.05]"],
+  .site-shell [class~="bg-white/[0.06]"],
+  .site-shell [class~="bg-white/[0.08]"],
+  .site-shell [class~="bg-white/5"],
+  .site-shell [class~="bg-white/10"] {
+    border-color: var(--botanical-border);
+    background-color: var(--botanical-panel);
+    box-shadow: var(--botanical-shadow-soft);
+  }
+
+  .site-shell [class*="bg-[#0b0f19]"],
+  .site-shell [class*="bg-[#0c101a]"],
+  .site-shell [class*="bg-[#0e1320]"],
+  .site-shell [class*="bg-[#0f172a]"],
+  .site-shell [class*="bg-[#10161b]"],
+  .site-shell [class*="bg-[#111726]"],
+  .site-shell [class*="bg-[#171717]"],
+  .site-shell [class*="bg-[#222]"] {
+    background-color: var(--botanical-panel);
+  }
+
+  .site-shell [class*="bg-[#0f0f0f]"] {
+    background-color: var(--botanical-background);
+  }
+
+  .site-shell [class*="bg-slate-800"],
+  .site-shell [class*="bg-black/30"],
+  .site-shell [class*="bg-black/40"],
+  .site-shell [class*="bg-black/50"] {
+    background-color: var(--botanical-clay);
+  }
+
+  .site-shell [class~="bg-emerald-500/10"],
+  .site-shell [class~="bg-emerald-500/15"],
+  .site-shell [class~="bg-emerald-500/20"] {
+    border-color: rgb(140 154 132 / 25%);
+    background-color: #e9ede6;
+  }
+
+  .site-shell [class~="bg-rose-500/10"],
+  .site-shell [class~="bg-rose-500/20"] {
+    border-color: rgb(164 81 67 / 20%);
+    background-color: #f4e9e5;
+  }
+
+  .site-shell [class~="bg-amber-500/10"],
+  .site-shell [class~="bg-amber-500/20"] {
+    border-color: rgb(133 100 56 / 20%);
+    background-color: #f2eee4;
+  }
+
+  .site-shell [class~="bg-emerald-500"],
+  .site-shell [class~="bg-emerald-400"],
+  .site-shell [class~="bg-emerald-300"] {
+    border-color: transparent;
+    background-color: var(--botanical-foreground);
+    box-shadow: 0 6px 14px rgb(45 58 49 / 12%);
+    color: #fff;
+  }
+
+  .site-shell [class~="bg-emerald-500"]:hover,
+  .site-shell [class~="bg-emerald-400"]:hover,
+  .site-shell [class~="bg-emerald-300"]:hover {
+    background-color: var(--botanical-terracotta);
+  }
+
+  .site-shell [class~="bg-emerald-500"][class~="text-black"],
+  .site-shell [class~="bg-emerald-400"][class~="text-black"],
+  .site-shell [class~="bg-emerald-300"][class~="text-black"] {
+    color: #ffffff;
+  }
+
+  .site-shell [class*="border-white/"],
+  .site-shell [class*="border-slate-"] {
+    border-color: var(--botanical-border);
+  }
+
+  .site-shell input:not([type="radio"]):not([type="checkbox"]),
+  .site-shell select,
+  .site-shell textarea {
+    min-height: 48px;
+    border-color: var(--botanical-border);
+    border-radius: 12px;
+    background: #f2f0eb;
+    color: var(--botanical-foreground);
+  }
+
+  .site-shell input::placeholder,
+  .site-shell textarea::placeholder {
+    color: #737b72;
+    opacity: 1;
+  }
+
+  .site-shell input:focus,
+  .site-shell select:focus,
+  .site-shell textarea:focus {
+    border-color: var(--botanical-sage);
+    outline: 2px solid rgb(140 154 132 / 25%);
+    outline-offset: 1px;
+  }
+
+  .site-shell :focus-visible {
+    outline-color: var(--botanical-sage);
   }
 }

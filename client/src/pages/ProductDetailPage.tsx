@@ -143,13 +143,13 @@ export const ProductDetailPage: React.FC = () => {
   if (loading) {
     return (
       <div className="max-w-6xl mx-auto px-4 py-16 animate-pulse space-y-8">
-        <div className="h-6 bg-slate-200 rounded w-1/4" />
+        <div className="h-6 bg-slate-800 rounded w-1/4" />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="aspect-[4/3] bg-slate-200 rounded-3xl" />
+          <div className="aspect-[4/3] bg-slate-800 rounded-3xl" />
           <div className="space-y-4">
-            <div className="h-8 bg-slate-200 rounded w-3/4" />
-            <div className="h-6 bg-slate-200 rounded w-1/3" />
-            <div className="h-24 bg-slate-200 rounded" />
+            <div className="h-8 bg-slate-800 rounded w-3/4" />
+            <div className="h-6 bg-slate-800 rounded w-1/3" />
+            <div className="h-24 bg-slate-800 rounded" />
           </div>
         </div>
       </div>
@@ -159,13 +159,13 @@ export const ProductDetailPage: React.FC = () => {
   if (!product) {
     return (
       <div className="max-w-md mx-auto px-4 py-20 text-center">
-        <h2 className="text-2xl font-bold text-slate-800">Product not found</h2>
-        <p className="text-sm text-slate-500 mt-2 mb-6">
+        <h2 className="text-2xl font-bold text-white">Product not found</h2>
+        <p className="text-sm text-slate-400 mt-2 mb-6">
           This listing may have been sold or removed by the seller.
         </p>
         <Link
           to="/products"
-          className="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 transition"
+          className="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-500 text-black font-bold rounded-xl hover:bg-emerald-400 transition"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Catalog
@@ -182,7 +182,7 @@ export const ProductDetailPage: React.FC = () => {
       {/* Back button */}
       <Link
         to="/products"
-        className="inline-flex items-center gap-1.5 text-sm font-semibold text-slate-500 hover:text-emerald-600 transition"
+        className="inline-flex items-center gap-1.5 text-sm font-semibold text-slate-400 hover:text-emerald-400 transition"
       >
         <ArrowLeft className="w-4 h-4" />
         Back to listings
@@ -191,7 +191,7 @@ export const ProductDetailPage: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
         {/* Images Column */}
         <div className="space-y-4">
-          <div className="aspect-[4/3] bg-slate-100 rounded-3xl overflow-hidden border border-slate-200 shadow-sm relative">
+          <div className="aspect-[4/3] bg-black/40 border border-white/10 rounded-3xl overflow-hidden shadow-2xl relative">
             <img
               src={selectedImage || defaultImg}
               alt={product.title}
@@ -201,7 +201,7 @@ export const ProductDetailPage: React.FC = () => {
               }}
             />
             {product.status !== "AVAILABLE" && (
-              <span className="absolute top-4 left-4 px-3 py-1 bg-amber-500 text-white font-bold rounded-lg text-xs uppercase tracking-wider shadow">
+              <span className="absolute top-4 left-4 px-3 py-1 bg-amber-500/20 border border-amber-500/30 text-amber-400 font-bold rounded-lg text-xs uppercase tracking-wider shadow">
                 {product.status === "PENDING" ? "Pending Pickup" : "Sold"}
               </span>
             )}
@@ -216,8 +216,8 @@ export const ProductDetailPage: React.FC = () => {
                   onClick={() => setSelectedImage(img.url)}
                   className={`w-20 h-20 rounded-xl overflow-hidden border-2 shrink-0 transition ${
                     selectedImage === img.url
-                      ? "border-emerald-600 shadow-md"
-                      : "border-slate-200 opacity-70 hover:opacity-100"
+                      ? "border-emerald-400 shadow-md"
+                      : "border-white/10 opacity-60 hover:opacity-100"
                   }`}
                 >
                   <img
@@ -238,22 +238,22 @@ export const ProductDetailPage: React.FC = () => {
         <div className="space-y-6">
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <span className="px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-full">
+              <span className="px-3 py-1 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold rounded-full">
                 {product.condition.replace("_", " ")}
               </span>
               {product.category && (
-                <span className="px-3 py-1 bg-slate-100 text-slate-700 text-xs font-semibold rounded-full">
+                <span className="px-3 py-1 bg-white/5 border border-white/10 text-slate-300 text-xs font-semibold rounded-full">
                   {product.category.name}
                 </span>
               )}
             </div>
 
-            <h1 className="text-3xl font-black text-slate-900 leading-tight">
+            <h1 className="text-white font-black text-2xl sm:text-3xl leading-tight">
               {product.title}
             </h1>
 
             <div className="mt-4 flex items-baseline gap-3">
-              <span className="text-4xl font-extrabold text-emerald-600">
+              <span className="text-3xl sm:text-4xl font-black text-rose-500 tracking-tight">
                 ${Number(product.price).toFixed(2)}
               </span>
               <span className="text-xs text-slate-400">Fixed student price</span>
@@ -261,17 +261,17 @@ export const ProductDetailPage: React.FC = () => {
           </div>
 
           {/* Location & Time info */}
-          <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200/80 space-y-2 text-sm text-slate-600">
+          <div className="bg-white/[0.03] p-4 rounded-2xl border border-white/[0.08] space-y-2 text-sm text-slate-300">
             {product.location && (
               <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-emerald-600 shrink-0" />
+                <MapPin className="w-4 h-4 text-emerald-400 shrink-0" />
                 <span>
-                  Pickup at: <strong className="text-slate-800">{product.location}</strong>
+                  Pickup at: <strong className="text-white">{product.location}</strong>
                 </span>
               </div>
             )}
-            <div className="flex items-center gap-2 text-xs text-slate-500">
-              <Calendar className="w-4 h-4 text-slate-400 shrink-0" />
+            <div className="flex items-center gap-2 text-xs text-slate-400">
+              <Calendar className="w-4 h-4 shrink-0" />
               <span>
                 Posted on {new Date(product.createdAt).toLocaleDateString(undefined, {
                   month: "long",
@@ -283,9 +283,9 @@ export const ProductDetailPage: React.FC = () => {
           </div>
 
           {/* Description */}
-          <div>
-            <h3 className="font-bold text-slate-900 mb-2">Description</h3>
-            <p className="text-slate-600 text-sm leading-relaxed whitespace-pre-line bg-white p-4 rounded-2xl border border-slate-100 shadow-xs">
+          <div className="bg-white/[0.03] border border-white/[0.08] rounded-2xl p-5 text-slate-300">
+            <h3 className="font-bold text-white mb-2 uppercase tracking-wider text-sm">Description</h3>
+            <p className="text-sm leading-relaxed whitespace-pre-line">
               {product.description}
             </p>
           </div>
@@ -296,7 +296,7 @@ export const ProductDetailPage: React.FC = () => {
               <div className="flex gap-3">
                 <Link
                   to={`/products/${product.id}/edit`}
-                  className="flex-1 py-3 px-4 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold rounded-xl transition flex items-center justify-center gap-2"
+                  className="flex-1 py-3 px-4 bg-white/10 hover:bg-white/20 text-white border border-white/15 font-bold rounded-xl transition flex items-center justify-center gap-2 uppercase tracking-wider text-sm"
                 >
                   <Edit className="w-4 h-4" />
                   Edit Listing
@@ -304,7 +304,7 @@ export const ProductDetailPage: React.FC = () => {
                 <button
                   onClick={handleDelete}
                   disabled={deleting}
-                  className="py-3 px-4 bg-rose-50 hover:bg-rose-100 text-rose-600 font-bold rounded-xl transition flex items-center justify-center gap-2 disabled:opacity-50"
+                  className="py-3 px-4 bg-rose-500/10 hover:bg-rose-500/20 text-rose-500 border border-rose-500/20 font-bold rounded-xl transition flex items-center justify-center gap-2 disabled:opacity-50 uppercase tracking-wider text-sm"
                 >
                   <Trash2 className="w-4 h-4" />
                   {deleting ? "Deleting..." : "Delete"}
@@ -317,7 +317,7 @@ export const ProductDetailPage: React.FC = () => {
                     {/* Buy Now Button */}
                     <button
                       onClick={() => setBuyModalOpen(true)}
-                      className="flex-1 py-3.5 px-6 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-lg shadow-emerald-500/20 transition flex items-center justify-center gap-2"
+                      className="flex-1 py-3.5 px-6 bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold rounded-xl shadow-lg shadow-emerald-500/20 uppercase tracking-wider transition flex items-center justify-center gap-2 text-sm"
                     >
                       <ShoppingBag className="w-5 h-5" />
                       Buy & Reserve Item
@@ -327,7 +327,7 @@ export const ProductDetailPage: React.FC = () => {
                     <button
                       onClick={handleStartChat}
                       disabled={chatLoading}
-                      className="flex-1 py-3.5 px-6 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl shadow-md transition flex items-center justify-center gap-2 disabled:opacity-50"
+                      className="flex-1 py-3.5 px-6 bg-white/[0.08] hover:bg-white/[0.15] text-white border border-white/15 font-bold uppercase tracking-wider rounded-xl transition flex items-center justify-center gap-2 disabled:opacity-50 text-sm"
                     >
                       <MessageCircle className="w-5 h-5 text-emerald-400" />
                       {chatLoading ? "Opening chat..." : "Chat with Seller"}
@@ -336,19 +336,19 @@ export const ProductDetailPage: React.FC = () => {
                     <button
                       onClick={handleShare}
                       title="Share item"
-                      className="p-3.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl transition flex items-center justify-center"
+                      className="p-3.5 bg-white/[0.06] hover:bg-white/[0.12] text-slate-300 border border-white/10 rounded-xl transition flex items-center justify-center"
                     >
                       <Share2 className="w-5 h-5" />
                     </button>
                   </div>
                 ) : (
-                  <div className="p-4 bg-amber-50 border border-amber-200 rounded-2xl text-center space-y-1">
-                    <p className="font-bold text-amber-800">
+                  <div className="p-4 bg-amber-500/10 border border-amber-500/20 rounded-2xl text-center space-y-1">
+                    <p className="font-bold text-amber-500">
                       {product.status === "PENDING"
                         ? "Item Currently Reserved / Pending Pickup"
                         : "Item Sold"}
                     </p>
-                    <p className="text-xs text-amber-600">
+                    <p className="text-xs text-amber-500/70">
                       Another student has arranged to buy this item.
                     </p>
                   </div>
@@ -358,19 +358,19 @@ export const ProductDetailPage: React.FC = () => {
           </div>
 
           {/* Seller Card */}
-          <div className="p-4 bg-white rounded-2xl border border-slate-200 flex items-center gap-4">
-            <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-800 font-bold text-lg flex items-center justify-center border border-emerald-200 shrink-0">
+          <div className="bg-white/[0.04] border border-white/[0.08] rounded-2xl p-5 text-white flex items-center gap-4">
+            <div className="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-lg flex items-center justify-center border border-emerald-500/30 shrink-0">
               {product.seller?.name ? product.seller.name.charAt(0).toUpperCase() : "S"}
             </div>
             <div className="flex-1 min-w-0">
-              <h4 className="font-bold text-slate-900 truncate">
+              <h4 className="font-bold text-white truncate">
                 {product.seller?.name || "Student"}
               </h4>
-              <p className="text-xs text-slate-500 truncate">
+              <p className="text-xs text-slate-400 truncate">
                 {product.seller?.campus || "Verified Campus Student"}
               </p>
               {product.seller?.bio && (
-                <p className="text-xs text-slate-400 mt-0.5 line-clamp-1">
+                <p className="text-xs text-slate-500 mt-0.5 line-clamp-1">
                   "{product.seller.bio}"
                 </p>
               )}
@@ -381,27 +381,27 @@ export const ProductDetailPage: React.FC = () => {
 
       {/* Buy / Reserve Checkout Modal */}
       {buyModalOpen && (
-        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative space-y-6">
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="bg-[#0e1320] border border-white/10 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative space-y-6 text-white">
             <button
               onClick={() => {
                 setBuyModalOpen(false);
                 setOrderSuccess(false);
               }}
-              className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-600 rounded-full"
+              className="absolute top-4 right-4 p-2 text-slate-400 hover:text-white rounded-full transition"
             >
               <X className="w-5 h-5" />
             </button>
 
             {orderSuccess ? (
               <div className="text-center py-6 space-y-4">
-                <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full mx-auto flex items-center justify-center">
+                <div className="w-16 h-16 bg-emerald-500/20 text-emerald-400 rounded-full mx-auto flex items-center justify-center border border-emerald-500/30">
                   <CheckCircle className="w-8 h-8" />
                 </div>
-                <h3 className="text-2xl font-black text-slate-900">
+                <h3 className="text-2xl font-black text-white">
                   Item Reserved Successfully!
                 </h3>
-                <p className="text-sm text-slate-500 max-w-sm mx-auto">
+                <p className="text-sm text-slate-300 max-w-sm mx-auto">
                   We notified <strong>{product.seller?.name}</strong> and started a chat message to confirm your campus meeting details.
                 </p>
 
@@ -411,52 +411,52 @@ export const ProductDetailPage: React.FC = () => {
                       setBuyModalOpen(false);
                       handleStartChat();
                     }}
-                    className="flex-1 py-3 px-4 bg-emerald-600 text-white font-bold rounded-xl text-sm hover:bg-emerald-700 transition"
+                    className="flex-1 py-3 px-4 bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold rounded-xl text-sm transition uppercase tracking-wider"
                   >
-                    Open Chat with Seller
+                    Open Chat
                   </button>
                   <Link
                     to="/profile"
-                    className="flex-1 py-3 px-4 bg-slate-100 text-slate-700 font-bold rounded-xl text-sm hover:bg-slate-200 transition text-center"
+                    className="flex-1 py-3 px-4 bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl text-sm transition text-center uppercase tracking-wider"
                   >
-                    View My Purchases
+                    My Purchases
                   </Link>
                 </div>
               </div>
             ) : (
               <form onSubmit={handlePlaceOrder} className="space-y-5">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/30">
                     <ShoppingBag className="w-5 h-5" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-black text-slate-900">
+                    <h3 className="text-xl font-black text-white">
                       Campus Purchase & Pickup
                     </h3>
-                    <p className="text-xs text-slate-500">
+                    <p className="text-xs text-slate-400">
                       Reserve this item directly from {product.seller?.name}
                     </p>
                   </div>
                 </div>
 
                 {/* Summary Box */}
-                <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 flex items-center justify-between">
+                <div className="p-4 bg-white/[0.03] rounded-2xl border border-white/10 flex items-center justify-between">
                   <div className="min-w-0 pr-2">
-                    <p className="font-bold text-slate-800 text-sm truncate">
+                    <p className="font-bold text-white text-sm truncate">
                       {product.title}
                     </p>
-                    <p className="text-xs text-slate-500">
+                    <p className="text-xs text-slate-400">
                       Condition: {product.condition.replace("_", " ")}
                     </p>
                   </div>
-                  <span className="text-xl font-black text-emerald-600 shrink-0">
+                  <span className="text-xl font-black text-rose-500 shrink-0">
                     ${Number(product.price).toFixed(2)}
                   </span>
                 </div>
 
                 {/* Payment Method Selector */}
                 <div className="space-y-2">
-                  <label className="text-xs font-bold text-slate-700 uppercase tracking-wider">
+                  <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">
                     Payment Method
                   </label>
                   <div className="grid grid-cols-1 gap-2">
@@ -465,19 +465,19 @@ export const ProductDetailPage: React.FC = () => {
                         id: "CAMPUS_MEETUP_CASH",
                         label: "Cash in Person (Recommended)",
                         desc: "Inspect item before handing over cash at meetup",
-                        icon: <DollarSign className="w-4 h-4 text-emerald-600" />,
+                        icon: <DollarSign className="w-4 h-4 text-emerald-400" />,
                       },
                       {
                         id: "VENMO_OR_ZELLE",
                         label: "Venmo / Zelle on Campus",
                         desc: "Pay peer digitally upon meeting in person",
-                        icon: <Smartphone className="w-4 h-4 text-blue-600" />,
+                        icon: <Smartphone className="w-4 h-4 text-emerald-400" />,
                       },
                       {
                         id: "CARD",
                         label: "Campus Student Pay",
                         desc: "Instant card checkout simulation",
-                        icon: <CreditCard className="w-4 h-4 text-purple-600" />,
+                        icon: <CreditCard className="w-4 h-4 text-emerald-400" />,
                       },
                     ].map((m) => (
                       <label
@@ -485,8 +485,8 @@ export const ProductDetailPage: React.FC = () => {
                         onClick={() => setPaymentMethod(m.id as PaymentMethod)}
                         className={`p-3 rounded-xl border flex items-center gap-3 cursor-pointer transition ${
                           paymentMethod === m.id
-                            ? "border-emerald-600 bg-emerald-50/50"
-                            : "border-slate-200 hover:bg-slate-50"
+                            ? "bg-emerald-500/10 border-emerald-500 text-white"
+                            : "bg-white/[0.03] border-white/10 text-slate-300 hover:bg-white/10"
                         }`}
                       >
                         <input
@@ -494,14 +494,14 @@ export const ProductDetailPage: React.FC = () => {
                           name="paymentMethod"
                           checked={paymentMethod === m.id}
                           onChange={() => {}}
-                          className="text-emerald-600 focus:ring-emerald-500"
+                          className="text-emerald-500 focus:ring-emerald-500 bg-transparent border-white/20"
                         />
                         <div className="flex-1">
-                          <div className="flex items-center gap-1.5 font-bold text-sm text-slate-900">
+                          <div className="flex items-center gap-1.5 font-bold text-sm">
                             {m.icon}
-                            <span>{m.label}</span>
+                            <span className={paymentMethod === m.id ? "text-white" : "text-slate-200"}>{m.label}</span>
                           </div>
-                          <p className="text-[11px] text-slate-500 mt-0.5">{m.desc}</p>
+                          <p className={`text-[11px] mt-0.5 ${paymentMethod === m.id ? "text-emerald-200/70" : "text-slate-500"}`}>{m.desc}</p>
                         </div>
                       </label>
                     ))}
@@ -510,8 +510,8 @@ export const ProductDetailPage: React.FC = () => {
 
                 {/* Meetup Location */}
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1">
-                    <MapPin className="w-3.5 h-3.5 text-slate-400" />
+                  <label className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1">
+                    <MapPin className="w-3.5 h-3.5 text-slate-500" />
                     Campus Meetup Location
                   </label>
                   <input
@@ -520,16 +520,16 @@ export const ProductDetailPage: React.FC = () => {
                     placeholder="e.g. Student Union, Library Lobby, Quad"
                     value={meetupLocation}
                     onChange={(e) => setMeetupLocation(e.target.value)}
-                    className="w-full px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-emerald-500"
+                    className="w-full px-4 py-2.5 text-sm bg-white/[0.06] border border-white/10 text-white placeholder:text-slate-500 rounded-xl focus:bg-white/10 focus:outline-none focus:border-emerald-500"
                   />
-                  <div className="flex gap-1.5 pt-1 text-[11px] text-slate-400 flex-wrap">
+                  <div className="flex gap-1.5 pt-1 text-[11px] text-slate-500 flex-wrap">
                     <span>Quick options:</span>
                     {["Main Library", "Student Union", "Dorm Quad"].map((loc) => (
                       <button
                         type="button"
                         key={loc}
                         onClick={() => setMeetupLocation(loc)}
-                        className="px-2 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-slate-600 transition"
+                        className="px-2 py-0.5 rounded bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 transition"
                       >
                         {loc}
                       </button>
@@ -539,7 +539,7 @@ export const ProductDetailPage: React.FC = () => {
 
                 {/* Meetup Note */}
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-slate-700 uppercase tracking-wider">
+                  <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">
                     Note / Availability Time (Optional)
                   </label>
                   <input
@@ -547,14 +547,14 @@ export const ProductDetailPage: React.FC = () => {
                     placeholder="e.g. Free after 3 PM today or tomorrow lunch"
                     value={meetupNote}
                     onChange={(e) => setMeetupNote(e.target.value)}
-                    className="w-full px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:border-emerald-500"
+                    className="w-full px-4 py-2.5 text-sm bg-white/[0.06] border border-white/10 text-white placeholder:text-slate-500 rounded-xl focus:bg-white/10 focus:outline-none focus:border-emerald-500"
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={buying}
-                  className="w-full py-3.5 px-6 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-lg shadow-emerald-500/20 transition flex items-center justify-center gap-2 disabled:opacity-50"
+                  className="w-full py-3.5 px-6 bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold rounded-xl shadow-lg shadow-emerald-500/20 transition flex items-center justify-center gap-2 disabled:opacity-50 uppercase tracking-wider text-sm mt-4"
                 >
                   <ShoppingBag className="w-5 h-5" />
                   {buying ? "Reserving item..." : `Confirm Order — $${Number(product.price).toFixed(2)}`}
