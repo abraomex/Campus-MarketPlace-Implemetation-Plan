@@ -37,22 +37,22 @@ export const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className="bg-[#0b0f19]/80 backdrop-blur-xl border-b border-white/[0.06] sticky top-0 z-50">
+    <nav className="sticky top-0 z-50 border-b border-white/[0.06] bg-[#0f0f0f]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 gap-4">
           {/* Logo */}
           <Link
             to="/"
-            className="flex items-center gap-2.5 font-bold text-xl text-white hover:text-emerald-400 transition"
+            className="flex items-center gap-3 font-semibold tracking-tight text-white transition hover:text-emerald-300"
           >
-            <div className="w-10 h-10 rounded-xl bg-emerald-500 flex items-center justify-center text-black shadow-lg shadow-emerald-500/20">
-              <ShoppingBag className="w-5 h-5" />
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-emerald-300/20 bg-emerald-300/10 text-emerald-300">
+              <ShoppingBag className="h-[18px] w-[18px]" />
             </div>
             <div className="flex flex-col">
-              <span className="leading-tight font-extrabold tracking-tight">
-                Campus<span className="text-emerald-400">Market</span>
+              <span className="text-[15px] leading-tight">
+                Campus<span className="text-emerald-300">Market</span>
               </span>
-              <span className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">
+              <span className="mt-0.5 text-[10px] font-medium tracking-wide text-slate-500">
                 Student Buy & Sell
               </span>
             </div>
@@ -61,7 +61,7 @@ export const Navbar: React.FC = () => {
           {/* Search bar (desktop) */}
           <form
             onSubmit={handleSearch}
-            className="hidden md:flex flex-1 max-w-md relative"
+            className="relative hidden max-w-md flex-1 md:flex"
           >
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
             <input
@@ -69,7 +69,7 @@ export const Navbar: React.FC = () => {
               placeholder="Search books, laptops, dorm gear..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 bg-white/[0.06] hover:bg-white/[0.09] focus:bg-white/[0.1] text-white text-sm rounded-full border border-white/[0.08] focus:border-emerald-500/50 focus:outline-none transition placeholder:text-slate-500"
+              className="w-full rounded-full border border-white/[0.14] bg-[#171717] py-2.5 pl-10 pr-4 text-sm text-white transition placeholder:text-slate-500 hover:border-white/[0.25] focus:border-white/40 focus:outline-none"
             />
           </form>
 
@@ -77,7 +77,7 @@ export const Navbar: React.FC = () => {
           <div className="hidden md:flex items-center gap-2">
             <Link
               to="/products"
-              className="flex items-center gap-1.5 px-3 py-2 text-sm font-semibold text-slate-300 hover:text-emerald-400 hover:bg-white/[0.06] rounded-lg transition"
+              className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-slate-300 transition hover:bg-white/[0.04] hover:text-white"
             >
               <Compass className="w-4 h-4" />
               Browse
@@ -85,7 +85,7 @@ export const Navbar: React.FC = () => {
 
             <Link
               to="/sell"
-              className="flex items-center gap-1.5 px-4 py-2 text-sm font-bold text-black bg-emerald-500 hover:bg-emerald-400 rounded-lg shadow-lg shadow-emerald-500/20 transition"
+              className="flex items-center gap-1.5 rounded-lg bg-emerald-400 px-4 py-2 text-sm font-semibold text-[#07100d] transition hover:bg-emerald-300"
             >
               <PlusCircle className="w-4 h-4" />
               Sell Item
@@ -95,7 +95,7 @@ export const Navbar: React.FC = () => {
               <div className="flex items-center gap-2 pl-3 border-l border-white/10">
                 <Link
                   to="/messages"
-                  className="relative flex items-center gap-1.5 px-3 py-2 text-sm font-semibold text-slate-300 hover:text-emerald-400 hover:bg-white/[0.06] rounded-lg transition"
+                  className="relative flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-slate-300 transition hover:bg-white/[0.04] hover:text-white"
                 >
                   <MessageSquare className="w-4 h-4" />
                   <span>Messages</span>
@@ -108,14 +108,14 @@ export const Navbar: React.FC = () => {
 
                 <Link
                   to="/profile"
-                  className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-300 hover:text-white hover:bg-white/[0.06] rounded-lg transition"
+                  className="flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium text-slate-300 transition hover:bg-white/[0.04] hover:text-white"
                 >
                   <div className="relative">
-                    <div className="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center text-xs border border-emerald-500/30">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full border border-emerald-300/20 bg-emerald-300/10 text-xs font-semibold text-emerald-300">
                       {user?.name.charAt(0).toUpperCase()}
                     </div>
                     {pendingOrders > 0 && (
-                      <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-amber-500 rounded-full ring-2 ring-[#0b0f19]" />
+                      <span className="absolute -right-1 -top-1 h-2.5 w-2.5 rounded-full bg-amber-400 ring-2 ring-[#090d12]" />
                     )}
                   </div>
                   <span className="max-w-[100px] truncate">{user?.name}</span>
@@ -124,7 +124,7 @@ export const Navbar: React.FC = () => {
                 <button
                   onClick={handleLogout}
                   title="Log out"
-                  className="p-2 text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 rounded-lg transition"
+                  className="rounded-lg p-2 text-slate-500 transition hover:bg-rose-500/10 hover:text-rose-300"
                 >
                   <LogOut className="w-4 h-4" />
                 </button>
@@ -133,13 +133,13 @@ export const Navbar: React.FC = () => {
               <div className="flex items-center gap-2 pl-3 border-l border-white/10">
                 <Link
                   to="/login"
-                  className="px-3 py-2 text-sm font-semibold text-slate-300 hover:text-emerald-400 rounded-lg transition"
+                  className="rounded-lg px-3 py-2 text-sm font-medium text-slate-300 transition hover:text-white"
                 >
                   Sign In
                 </Link>
                 <Link
                   to="/register"
-                  className="px-3.5 py-2 text-sm font-semibold text-white bg-white/[0.08] hover:bg-white/[0.15] border border-white/10 rounded-lg transition"
+                  className="rounded-lg border border-white/10 bg-white/[0.05] px-3.5 py-2 text-sm font-medium text-white transition hover:bg-white/[0.09]"
                 >
                   Register
                 </Link>
@@ -151,7 +151,7 @@ export const Navbar: React.FC = () => {
           <div className="flex md:hidden items-center gap-2">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-slate-400 hover:text-white hover:bg-white/[0.06] rounded-lg transition"
+              className="rounded-lg p-2 text-slate-400 transition hover:bg-white/[0.06] hover:text-white"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>

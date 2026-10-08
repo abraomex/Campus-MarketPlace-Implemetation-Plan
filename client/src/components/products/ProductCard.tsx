@@ -1,107 +1,75 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import type { Product } from "../../types";
-import { MapPin, Tag } from "lucide-react";
+import { MapPin, Package, Tag } from "lucide-react";
 
 interface ProductCardProps {
   product: Product;
 }
 
-const conditionLabels: Record<string, { text: string; color: string }> = {
-  NEW: { text: "Brand New", color: "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30" },
-  LIKE_NEW: { text: "Like New", color: "bg-teal-500/20 text-teal-300 border border-teal-500/30" },
-  GOOD: { text: "Good", color: "bg-blue-500/20 text-blue-300 border border-blue-500/30" },
-  FAIR: { text: "Fair", color: "bg-amber-500/20 text-amber-300 border border-amber-500/30" },
-  POOR: { text: "Poor", color: "bg-orange-500/20 text-orange-300 border border-orange-500/30" },
+const conditionLabels: Record<string, string> = {
+  NEW: "Brand new",
+  LIKE_NEW: "Like new",
+  GOOD: "Good",
+  FAIR: "Fair",
+  POOR: "Well loved",
 };
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
-  const imageUrl =
-    product.images && product.images.length > 0
-      ? product.images[0].url
-      : "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=600&q=80";
-
-  const conditionInfo = conditionLabels[product.condition] || {
-    text: product.condition,
-    color: "bg-white/10 text-slate-300 border border-white/10",
-  };
+  const [imageFailed, setImageFailed] = useState(false);
+  const imageUrl = product.images?.[0]?.url;
+  const condition = conditionLabels[product.condition] || product.condition;
 
   return (
     <Link
       to={`/products/${product.id}`}
-      className="group bg-white/[0.04] rounded-2xl border border-white/[0.08] hover:border-emerald-500/40 hover:bg-white/[0.07] hover:shadow-xl hover:shadow-emerald-500/5 transition-all duration-300 flex flex-col overflow-hidden"
+      className="group flex min-w-0 flex-col rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-400/50"
     >
-      {/* Image container */}
-      <div className="relative aspect-[4/3] bg-white/[0.02] overflow-hidden">
-        <img
-          src={imageUrl}
-          alt={product.title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-          onError={(e) => {
-            (e.target as HTMLImageElement).src =
-              "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=600&q=80";
-          }}
-        />
-
-        {/* Dark gradient overlay at bottom of image */}
-        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/60 to-transparent" />
-
-        {/* Condition Badge */}
-        <span
-          className={`absolute top-3 left-3 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-lg backdrop-blur-md ${conditionInfo.color}`}
-        >
-          {conditionInfo.text}
+      <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-[#222]">
+        {imageUrl && !imageFailed ? (
+          <img
+            src={imageUrl}
+            alt={product.title}
+            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+            onError={() => setImageFailed(true)}
+          />
+        ) : (
+          <div className="flex h-full flex-col items-center justify-center gap-2 text-slate-500">
+            <Package className="h-8 w-8" strokeWidth={1.5} />
+            <span className="text-xs font-medium">No photo provided</span>
+          </div>
+        )}
+        <span className="absolute bottom-2 left-2 rounded bg-black/75 px-2 py-1 text-[11px] font-medium text-white">
+          {condition}
         </span>
-
-        {/* Category Pill */}
-        {product.category && (
-          <span className="absolute top-3 right-3 px-2 py-0.5 text-[10px] font-semibold bg-black/60 text-white/80 rounded-md backdrop-blur-sm border border-white/10">
-            {product.category.name.split(" ")[0]}
+        {product.status !== "AVAILABLE" && (
+          <span className="absolute right-2 top-2 rounded bg-black/75 px-2 py-1 text-[10px] font-medium text-amber-200">
+            {product.status}
           </span>
         )}
       </div>
 
-      {/* Info Container */}
-      <div className="p-4 flex-1 flex flex-col justify-between">
-        <div>
-          <div className="flex items-baseline justify-between gap-2 mb-1.5">
-            <span className="text-xl font-extrabold text-emerald-400 group-hover:text-emerald-300 transition">
-              ${Number(product.price).toFixed(2)}
-            </span>
-            {product.status !== "AVAILABLE" && (
-              <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">
-                {product.status}
-              </span>
-            )}
-          </div>
-
-          <h3 className="font-semibold text-slate-200 group-hover:text-white line-clamp-2 text-sm leading-snug mb-2">
-            {product.title}
-          </h3>
-        </div>
-
-        <div className="pt-3 border-t border-white/[0.08] space-y-1.5 text-xs text-slate-500">
+      <div className="pt-3">
+        <h3 className="line-clamp-2 text-sm font-medium leading-5 text-white group-hover:text-emerald-200">
+          {product.title}
+        </h3>
+        <p className="mt-1.5 font-mono text-sm font-semibold tabular-nums text-slate-100">
+          ${Number(product.price).toFixed(2)}
+        </p>
+        <div className="mt-1.5 flex items-center gap-1 truncate text-xs text-slate-500">
           {product.location ? (
-            <div className="flex items-center gap-1 truncate text-slate-400">
-              <MapPin className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+            <>
+              <MapPin className="h-3 w-3 shrink-0" />
               <span className="truncate">{product.location}</span>
-            </div>
+            </>
           ) : (
-            <div className="flex items-center gap-1 truncate text-slate-400">
-              <Tag className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-              <span>Campus Pickup</span>
-            </div>
+            <>
+              <Tag className="h-3 w-3 shrink-0" />
+              <span>Campus pickup</span>
+            </>
           )}
-
-          <div className="flex items-center justify-between text-[11px] text-slate-500">
-            <span>By {product.seller?.name || "Student"}</span>
-            <span>
-              {new Date(product.createdAt).toLocaleDateString(undefined, {
-                month: "short",
-                day: "numeric",
-              })}
-            </span>
-          </div>
+          <span aria-hidden="true">·</span>
+          <span className="truncate">By {product.seller?.name || "Student"}</span>
         </div>
       </div>
     </Link>

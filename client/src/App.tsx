@@ -22,9 +22,9 @@ export const App: React.FC = () => {
     <AuthProvider>
       <NotificationProvider>
         <BrowserRouter>
-          <NotificationToastContainer />
-          <div className="min-h-screen flex flex-col bg-[#0b0f19] text-white font-sans">
+          <div className="industrial-shell min-h-screen flex flex-col font-sans">
             <Navbar />
+            <NotificationToastContainer />
           <main className="flex-1">
             <Routes>
               {/* Public Routes */}
